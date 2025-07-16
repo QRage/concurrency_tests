@@ -32,4 +32,6 @@ def single_thread_single_process():
 
 
 if __name__ == "__main__":
+    print("--- Running single thread, single process test ---")
+
     single_thread_single_process()

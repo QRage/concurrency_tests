@@ -1,5 +1,7 @@
 import time
 import functools
+import inspect
+import os
 
 
 def measure_execution_time(func):
@@ -9,32 +11,24 @@ def measure_execution_time(func):
     """
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
+        caller_frame = inspect.stack()[1]
         wall_start = time.perf_counter()
-        cpu_start = time.process_time()
+        cpu_times_start = os.times()
 
         result = func(*args, **kwargs)
 
         wall_end = time.perf_counter()
-        cpu_end = time.process_time()
+        cpu_times_end = os.times()
 
         wall_time_taken = wall_end - wall_start
-        cpu_time_taken = cpu_end - cpu_start
+        user_time_taken = cpu_times_end.user - cpu_times_start.user
+        system_time_taken = cpu_times_end.system - cpu_times_start.system
+        total_cpu_time_taken = user_time_taken + system_time_taken
 
         print(f"\n--- Performance for '{func.__name__}' ---")
-        print(f"CPU times: user {cpu_time_taken:.4f}s, sys: [Not directly captured by process_time in this granular way], total: {cpu_time_taken:.4f}s")
+        print(f"CPU times: user {user_time_taken:.4f}s, sys: {system_time_taken:.4f}s, total: {total_cpu_time_taken:.4f}s")
         print(f"Wall time: {wall_time_taken:.4f}s")
         print("--------------------------------------")
 
         return result
     return wrapper
-
-
-def get_execution_time(func, *args, **kwargs):
-    """
-    Executes a method and returns its execution time.
-    """
-    start_time = time.perf_counter()
-    func(*args, **kwargs)
-    end_time = time.perf_counter()
-    execution_time = end_time - start_time
-    return execution_time
