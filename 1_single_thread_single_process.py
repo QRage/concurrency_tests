@@ -26,7 +26,6 @@ urls = [
 def single_thread_single_process():
     result = []
     for url in urls:
-        print(url)
         with request.urlopen(url) as src:
             result.append(src)
 
