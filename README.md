@@ -47,7 +47,7 @@ total: 0.0625s
 Wall time: 0.1117s
 
 ### 3 Muptiprocessing
-3_multiprocessoring.py
+3_multiprocessing.py
 ___
 Starting multi-processing (Pool.map) URL fetching with 2 workers...  
 CPU times:  
