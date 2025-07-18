@@ -100,6 +100,7 @@ With 16 threads, we got the lowest execution time.
 ___
 3. Multiprocessing (multiprocessing.Pool)
 Number of processes Wall time (sec)  
+
 | Processes | Wall time |
 | --- | --- |
 | 2 | 0.76 |
